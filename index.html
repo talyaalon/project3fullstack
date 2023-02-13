@@ -19,6 +19,58 @@
 </head>
 
 <body>
+    <button id="signupbtn" onclick="showContent() ,document.getElementById('home').style.display='none'"
+        style="width:auto;">
+        Sign Up</button>
+    <button id="loginbtn" onclick="showContent('templeteLogin') ,document.getElementById('home').style.display='none'"
+        style="width:auto;">Log In</button>
+    <button id="logoutbtn" onclick=logout() style="width:auto;">Log Out</button>
+    <template id="templeteSignup">
+        <div id="signup" class="modal">
+            <span onclick=closeSignup() class="close" title="Close">&times;</span>
+            <div class="container">
+                <form onsubmit="signup(event)">
+                    <div class="avatar">
+                        <img src="images/avatar.png" width="190px" alt="">
+                    </div>
+                    <label for="username1">Username</label> <br>
+                    <input type="text" name="username1" id="username1" required><br>
+
+                    <label for="email1">Email</label> <br>
+                    <input type="email" name="email1" id="email1" required><br>
+
+                    <label for="password1">Password</label> <br>
+                    <input type="password" name="password1" id="password1" required><br>
+                    <hr>
+
+                    <button type="submit">Sign Up</button>
+                    <p id="result1">Welcome! please create account</p>
+                </form>
+            </div>
+        </div>
+    </template>
+    <template id="templeteLogin">
+        <div id="login" class="modal">
+            <span onclick=closeLogin() class="close" title="Close">&times;</span>
+            <div class="container">
+                <form onsubmit="login(event)">
+                    <div class="avatar">
+                        <img src="images/avatar.png" width="190px" alt="">
+                    </div>
+
+
+                    <label for="email2">Email</label> <br>
+                    <input type="email" name="email2" id="email2" required><br>
+
+                    <label for="password2">Password</label> <br>
+                    <input type="password" name="password2" id="password2" required><br>
+                    <hr>
+                    <button type="submit">Log In</button>
+                    <p id="result2">Welcome! login</p>
+                </form>
+            </div>
+        </div>
+    </template>
     <!-- App Wrapper -->
     <main class="app">
         <!-- Greeting -->

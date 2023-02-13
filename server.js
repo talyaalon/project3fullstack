@@ -4,19 +4,19 @@ class Server {
   }
   generalSortFunc(method, itemName = null, data = null) {
     if (method == "GET") {
-      get(itemName);
+      this.get(itemName);
     }
     if (method == "GETALL") {
-      getAll();
+      this.getAll();
     }
     if (method == "PUT") {
-      put(itemName, data);
+      this.put(itemName, data);
     }
     if (method == "POST") {
       this.post(itemName, data);
     }
     if (method == "DELETE") {
-      deletee(itemName);
+      this.deletee(itemName);
     }
   }
   get(itemName) {

@@ -235,3 +235,85 @@ input:checked ~ .bubble::after {
 	text-decoration: line-through;
 	color: var(--grey);
 }
+
+.container{
+	/* border: 2px solid; */
+	width: fit-content;
+	padding: 30px;
+	position: fixed;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	width: 70%;
+	height: 420px;
+  
+  }
+  .home{
+  display: inline-flex;
+  }
+  form{
+	background-color: lavender;
+	left      : 50%;
+	top       : 50%;
+	position  : absolute;
+	transform : translate(-50%, -50%);
+	padding: 10px;
+	width: 50%;
+	text-align: center;
+	align-self: center;
+	font-weight: bold; 
+	border-radius: 8px;
+  }
+  button{
+	font-size: 12px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	width: 100%;
+	height: 100%;
+	display:grid;
+	border-radius: 8px; 
+	text-align: center;
+	cursor: pointer;
+  }
+  input[type-text],input[type-email],input[type-password]{
+	border: 1px solid;
+	height: 20px;
+	width: 50%;
+	border-radius: 5px;
+	text-align: center;
+  }
+  button:hover{
+	background-color: rgba(12, 141, 192, 0.507);
+	font-weight: bold;
+	color: white;
+  }
+  .modal {
+	display: none;
+	width: 100%; 
+	height: 100%;
+  }
+  .close {
+	position: absolute;
+	right: 35px;
+	top: 15px;
+	font-size: 40px;
+	font-weight: bold;
+	color: #393232;
+  }
+  body{
+	background-image: url("images/backgroung.jpg");
+  }
+  h1{
+	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color:aliceblue;
+	font-size: 50px;
+	margin: 0 auto;
+	text-align: center;
+	text-shadow:  0px 0px 3px blue;;
+  }
+  h3{
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	color:rgb(8, 45, 102);
+	font-size: 18px;
+	margin: 0 auto;
+	text-align: left;
+  }
