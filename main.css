@@ -23,13 +23,26 @@
 	font-family: 'montserrat', sans-serif;
 }
 
-input:not([type="radio"]):not([type="checkbox"]), button {
+input[type-text],input[type-email],input[type-password]{
+	border: 1px solid;
+	height: 20px;
+	width: 50%;
+	border-radius: 5px;
+	text-align: center;
+	appearance: none;
+	outline: none;
+	background: none;
+	cursor: initial;
+  }
+
+/*input:not([type="radio"]):not([type="checkbox"]), button {
 	appearance: none;
 	border: none;
 	outline: none;
 	background: none;
 	cursor: initial;
-}
+}*/
+
 /* End of Resets */
 
 body {
