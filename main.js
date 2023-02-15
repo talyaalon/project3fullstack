@@ -212,13 +212,40 @@ function login(e) {
   }
 }
 
-// function showContent(nameItem) {
-//   var temp = document.getElementById(nameItem);
-//   var clon = temp.content.cloneNode(true);
-//   document.body.appendChild(clon);
-// }
-function showContent() {
-  var temp = document.getElementsByTagName("template")[0];
+function showContent(nameItem) {
+  var temp = document.getElementById(nameItem);
   var clon = temp.content.cloneNode(true);
   document.body.appendChild(clon);
+}
+function closeSignup() {
+  document.getElementById("signup").style.display = "none";
+  const element = document.getElementById("templeteSignup");
+  element.remove();
+  document.getElementById("username1").value = "";
+  document.getElementById("password1").value = "";
+  document.getElementById("email1").value = "";
+  document.getElementById("result1").innerHTML =
+    "Welcome! please create account";
+  location.reload();
+}
+function closeLogin() {
+  document.getElementById("login").style.display = "none";
+  const element = document.getElementById("templeteLogin");
+  element.remove();
+  document.getElementById("email2").value = "";
+  document.getElementById("password2").value = "";
+  document.getElementById("result2").innerHTML = "Welcome! login";
+  location.reload();
+}
+function logout() {
+  currentDate = nowDate();
+  currentUserVar.lastExit = currentDate;
+  localStorage.setItem(currentUserVar.email, JSON.stringify(currentUserVar));
+  currentUser.innerHTML = "";
+  currentUserVar = null;
+  localStorage.setItem("currentUserVar", null);
+  document.getElementById("signupbtn").style.display = "inline";
+  document.getElementById("loginbtn").style.display = "inline";
+  document.getElementById("logoutbtn").style.display = "none";
+  location.reload();
 }

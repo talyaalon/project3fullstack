@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <button id="signupbtn" onclick="showContent() ,document.getElementById('home').style.display='none'"
+    <button id="signupbtn" onclick="showContent('templeteSignup'),document.getElementById('home').style.display='none'"
         style="width:auto;">
         Sign Up</button>
     <button id="loginbtn" onclick="showContent('templeteLogin') ,document.getElementById('home').style.display='none'"
@@ -29,7 +29,7 @@
         <div id="signup" class="modal">
             <span onclick=closeSignup() class="close" title="Close">&times;</span>
             <div class="container">
-                <form onsubmit="signup(event)">
+                <form class="ourForm" onsubmit="signup(event)">
                     <div class="avatar">
                         <img src="images/avatar.png" width="190px" alt="">
                     </div>
@@ -53,7 +53,7 @@
         <div id="login" class="modal">
             <span onclick=closeLogin() class="close" title="Close">&times;</span>
             <div class="container">
-                <form onsubmit="login(event)">
+                <form class="ourForm" onsubmit="login(event)">
                     <div class="avatar">
                         <img src="images/avatar.png" width="190px" alt="">
                     </div>
