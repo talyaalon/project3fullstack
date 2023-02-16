@@ -1,18 +1,22 @@
+var user = localStorage.getItem("currentUserVar");
+var currentUserVar = JSON.parse(user);
 window.addEventListener("load", () => {
-  todos = JSON.parse(localStorage.getItem("todos")) || [];
+  //todos = JSON.parse(localStorage.getItem("todos")) || [];
+  user = JSON.parse(localStorage.getItem(currentUserVar.email));
+  todos = user.todos;
   const nameInput = document.querySelector("#name");
   const newTodoForm = document.querySelector("#new-todo-form");
 
   const username = localStorage.getItem("username") || "";
 
-  nameInput.value = username;
+  //nameInput.value = username;
 
-  nameInput.addEventListener("change", (e) => {
-    let fajax = new Fajax();
-    fajax.open("POST", "username", e.target.value);
-    fajax.send();
-    //localStorage.setItem("username", e.target.value);
-  });
+  //   nameInput.addEventListener("change", (e) => {
+  //     let fajax = new Fajax();
+  //     fajax.open("POST", "username", e.target.value);
+  //     fajax.send();
+  //     //localStorage.setItem("username", e.target.value);
+  //   });
 
   newTodoForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -24,9 +28,12 @@ window.addEventListener("load", () => {
       createdAt: new Date().getTime(),
     };
 
-    todos.push(todo);
+    //todos.push(todo);
+
     //fajax.open(POST)
-    localStorage.setItem("todos", JSON.stringify(todos));
+    //localStorage.setItem("todos", JSON.stringify(todos));
+    user.todos.push(todo);
+    localStorage.setItem(currentUserVar.email, JSON.stringify(user));
 
     // Reset the form
     e.target.reset();
@@ -86,8 +93,9 @@ function DisplayTodos() {
 
     input.addEventListener("change", (e) => {
       todo.done = e.target.checked;
-      localStorage.setItem("todos", JSON.stringify(todos));
-
+      //localStorage.setItem("todos", JSON.stringify(todos));
+      user.todos = todos;
+      localStorage.setItem(currentUserVar.email, JSON.stringify(user));
       if (todo.done) {
         todoItem.classList.add("done");
       } else {
@@ -104,20 +112,43 @@ function DisplayTodos() {
       input.addEventListener("blur", (e) => {
         input.setAttribute("readonly", true);
         todo.content = e.target.value;
-        localStorage.setItem("todos", JSON.stringify(todos));
+        //localStorage.setItem("todos", JSON.stringify(todos));
+        user.todos = todos;
+        localStorage.setItem(currentUserVar.email, JSON.stringify(user));
         DisplayTodos();
       });
     });
 
     deleteButton.addEventListener("click", (e) => {
       todos = todos.filter((t) => t != todo);
-      localStorage.setItem("todos", JSON.stringify(todos));
+      //localStorage.setItem("todos", JSON.stringify(todos));
+      user.todos = todos;
+      localStorage.setItem(currentUserVar.email, JSON.stringify(user));
       DisplayTodos();
     });
   });
 }
 
 /////////------------
+function allStorage() {
+  var values = [],
+    keys = Object.keys(localStorage),
+    i = keys.length;
+  console.log(keys);
+  //keys.removeItem("currentUserVar");
+  const idxObj = keys.findIndex((object) => {
+    return object == "currentUserVar";
+  });
+
+  keys.splice(idxObj, 1);
+  console.log(keys);
+  while (i--) {
+    var data = JSON.parse(localStorage.getItem(keys[i]));
+    if (data != null) values.push(data);
+  }
+
+  return values;
+}
 function signup(e) {
   event.preventDefault();
   if (currentUserVar != null) {
@@ -128,19 +159,14 @@ function signup(e) {
   var email1 = document.getElementById("email1").value;
   var pass = document.getElementById("password1").value;
   var result1 = document.getElementById("result1");
-  var currentUser = document.getElementById("currentUser");
-
-  currentDate = nowDate();
+  var currentUser = document.getElementById("name");
 
   var user = {
     email: email1,
     username: username,
     password: pass,
-    fallGameScore: 0,
-    fourGameScore: Number.MAX_VALUE,
-    lastEntry: currentDate,
-    lastExit: null,
     wrongAttempts: 0,
+    todos: [],
   };
 
   console.log(allStorage());
@@ -156,7 +182,7 @@ function signup(e) {
   localStorage.setItem(email1, json);
   console.log("user added");
   result1.innerHTML = "User successfully added";
-  currentUser.innerHTML = "Hello " + user.username;
+  //currentUser.innerHTML = "Hello " + user.username;
   currentUserVar = user;
   localStorage.setItem("currentUserVar", json);
   //reloadTable();
@@ -184,11 +210,9 @@ function login(e) {
     result2.innerHTML = "The email address is not registered on the website";
   } else if (email == data.email && pass == data.password) {
     result2.innerHTML = "logged in";
-    currentUser.innerHTML = "Hello " + data.username;
+    //currentUser.innerHTML = "Hello " + data.username;
 
-    currentDate = nowDate();
-
-    data.lastEntry = currentDate;
+    //data.lastEntry = currentDate;
     data.wrongAttempts = 0;
     localStorage.setItem(data.email, JSON.stringify(data));
     localStorage.setItem("currentUserVar", JSON.stringify(data));
@@ -238,10 +262,8 @@ function closeLogin() {
   location.reload();
 }
 function logout() {
-  currentDate = nowDate();
-  currentUserVar.lastExit = currentDate;
-  localStorage.setItem(currentUserVar.email, JSON.stringify(currentUserVar));
-  currentUser.innerHTML = "";
+  //localStorage.setItem(currentUserVar.email, JSON.stringify(currentUserVar));
+  //currentUser.innerHTML = "";
   currentUserVar = null;
   localStorage.setItem("currentUserVar", null);
   document.getElementById("signupbtn").style.display = "inline";
