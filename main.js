@@ -2,12 +2,20 @@ var user = localStorage.getItem("currentUserVar");
 var currentUserVar = JSON.parse(user);
 window.addEventListener("load", () => {
   //todos = JSON.parse(localStorage.getItem("todos")) || [];
+  if (currentUserVar != null) {
+    var currentUser = document.getElementById("currntUserName");
+    currentUser.innerHTML = "What's up, " + currentUserVar.username;
+    document.getElementById("signupbtn").style.display = "none";
+    document.getElementById("loginbtn").style.display = "none";
+  } else {
+    document.getElementById("logoutbtn").style.display = "none";
+  }
   user = JSON.parse(localStorage.getItem(currentUserVar.email));
   todos = user.todos;
-  const nameInput = document.querySelector("#name");
+  //const nameInput = document.querySelector("#name");
   const newTodoForm = document.querySelector("#new-todo-form");
 
-  const username = localStorage.getItem("username") || "";
+  //const username = localStorage.getItem("username") || "";
 
   //nameInput.value = username;
 
@@ -159,7 +167,7 @@ function signup(e) {
   var email1 = document.getElementById("email1").value;
   var pass = document.getElementById("password1").value;
   var result1 = document.getElementById("result1");
-  var currentUser = document.getElementById("name");
+  var currentUser = document.getElementById("currntUserName");
 
   var user = {
     email: email1,
@@ -182,7 +190,7 @@ function signup(e) {
   localStorage.setItem(email1, json);
   console.log("user added");
   result1.innerHTML = "User successfully added";
-  //currentUser.innerHTML = "Hello " + user.username;
+  currentUser.innerHTML = "What's up, " + user.username;
   currentUserVar = user;
   localStorage.setItem("currentUserVar", json);
   //reloadTable();
@@ -200,7 +208,8 @@ function login(e) {
   var pass = document.getElementById("password2").value;
   var email = document.getElementById("email2").value;
   var result2 = document.getElementById("result2");
-  var currentUser = document.getElementById("currentUser");
+  //var currentUser = document.getElementById("currentUser");
+  var currentUser = document.getElementById("currntUserName");
 
   var user = localStorage.getItem(email);
   var data = JSON.parse(user);
@@ -210,7 +219,7 @@ function login(e) {
     result2.innerHTML = "The email address is not registered on the website";
   } else if (email == data.email && pass == data.password) {
     result2.innerHTML = "logged in";
-    //currentUser.innerHTML = "Hello " + data.username;
+    currentUser.innerHTML = "What's up, " + data.username;
 
     //data.lastEntry = currentDate;
     data.wrongAttempts = 0;
@@ -250,6 +259,7 @@ function closeSignup() {
   document.getElementById("email1").value = "";
   document.getElementById("result1").innerHTML =
     "Welcome! please create account";
+
   location.reload();
 }
 function closeLogin() {
