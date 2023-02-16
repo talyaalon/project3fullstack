@@ -4,7 +4,7 @@ class Server {
   }
   generalSortFunc(method, itemName = null, data = null) {
     if (method == "GET") {
-      this.get(itemName);
+      return this.get(itemName);
     }
     if (method == "GETALL") {
       this.getAll();
@@ -20,7 +20,7 @@ class Server {
     }
   }
   get(itemName) {
-    this.db.get(itemName);
+    return this.db.get(itemName);
   }
   getAll() {
     this.db.getAll();

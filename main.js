@@ -1,3 +1,7 @@
+// let fajax = new Fajax();
+// fajax.open("GET", "currentUserVar");
+// fajax.send();
+//var user = fajax.responseText;
 var user = localStorage.getItem("currentUserVar");
 var currentUserVar = JSON.parse(user);
 window.addEventListener("load", () => {
@@ -7,13 +11,40 @@ window.addEventListener("load", () => {
     currentUser.innerHTML = "What's up, " + currentUserVar.username;
     document.getElementById("signupbtn").style.display = "none";
     document.getElementById("loginbtn").style.display = "none";
+    user = JSON.parse(localStorage.getItem(currentUserVar.email));
+    todos = user.todos;
+    const newTodoForm = document.querySelector("#new-todo-form");
+    newTodoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const todo = {
+        content: e.target.elements.content.value,
+        category: e.target.elements.category.value,
+        done: false,
+        createdAt: new Date().getTime(),
+      };
+
+      //todos.push(todo);
+      //localStorage.setItem("todos", JSON.stringify(todos));
+      user.todos.push(todo);
+      json = JSON.stringify(user);
+      //localStorage.setItem(currentUserVar.email, json);
+      let fajax1 = new Fajax();
+      fajax1.open("PUT", currentUserVar.email, json);
+      fajax1.send();
+
+      // Reset the form
+      e.target.reset();
+
+      DisplayTodos();
+    });
+
+    DisplayTodos();
   } else {
     document.getElementById("logoutbtn").style.display = "none";
   }
-  user = JSON.parse(localStorage.getItem(currentUserVar.email));
-  todos = user.todos;
+
   //const nameInput = document.querySelector("#name");
-  const newTodoForm = document.querySelector("#new-todo-form");
 
   //const username = localStorage.getItem("username") || "";
 
@@ -25,31 +56,6 @@ window.addEventListener("load", () => {
   //     fajax.send();
   //     //localStorage.setItem("username", e.target.value);
   //   });
-
-  newTodoForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const todo = {
-      content: e.target.elements.content.value,
-      category: e.target.elements.category.value,
-      done: false,
-      createdAt: new Date().getTime(),
-    };
-
-    //todos.push(todo);
-
-    //fajax.open(POST)
-    //localStorage.setItem("todos", JSON.stringify(todos));
-    user.todos.push(todo);
-    localStorage.setItem(currentUserVar.email, JSON.stringify(user));
-
-    // Reset the form
-    e.target.reset();
-
-    DisplayTodos();
-  });
-
-  DisplayTodos();
 });
 
 function DisplayTodos() {
@@ -101,9 +107,12 @@ function DisplayTodos() {
 
     input.addEventListener("change", (e) => {
       todo.done = e.target.checked;
-      //localStorage.setItem("todos", JSON.stringify(todos));
       user.todos = todos;
-      localStorage.setItem(currentUserVar.email, JSON.stringify(user));
+      json = JSON.stringify(user);
+      //localStorage.setItem(currentUserVar.email,json);
+      let fajax1 = new Fajax();
+      fajax1.open("PUT", currentUserVar.email, json);
+      fajax1.send();
       if (todo.done) {
         todoItem.classList.add("done");
       } else {
@@ -120,18 +129,24 @@ function DisplayTodos() {
       input.addEventListener("blur", (e) => {
         input.setAttribute("readonly", true);
         todo.content = e.target.value;
-        //localStorage.setItem("todos", JSON.stringify(todos));
         user.todos = todos;
-        localStorage.setItem(currentUserVar.email, JSON.stringify(user));
+        json = JSON.stringify(user);
+        //localStorage.setItem(currentUserVar.email, json);
+        let fajax1 = new Fajax();
+        fajax1.open("PUT", currentUserVar.email, json);
+        fajax1.send();
         DisplayTodos();
       });
     });
 
     deleteButton.addEventListener("click", (e) => {
       todos = todos.filter((t) => t != todo);
-      //localStorage.setItem("todos", JSON.stringify(todos));
       user.todos = todos;
-      localStorage.setItem(currentUserVar.email, JSON.stringify(user));
+      json = JSON.stringify(user);
+      //localStorage.setItem(currentUserVar.email, json);
+      let fajax1 = new Fajax();
+      fajax1.open("PUT", currentUserVar.email, json);
+      fajax1.send();
       DisplayTodos();
     });
   });
@@ -185,14 +200,20 @@ function signup(e) {
       "There is already an account associated with this email address";
     return;
   }
-
   var json = JSON.stringify(user);
-  localStorage.setItem(email1, json);
+  let fajax1 = new Fajax();
+  fajax1.open("POST", email1, json);
+  fajax1.send();
+
+  //localStorage.setItem(email1, json);
   console.log("user added");
   result1.innerHTML = "User successfully added";
   currentUser.innerHTML = "What's up, " + user.username;
   currentUserVar = user;
-  localStorage.setItem("currentUserVar", json);
+  //localStorage.setItem("currentUserVar", json);
+  let fajax2 = new Fajax();
+  fajax2.open("POST", "currentUserVar", json);
+  fajax2.send();
   //reloadTable();
   document.getElementById("username1").value = "";
   document.getElementById("password1").value = "";
@@ -208,7 +229,6 @@ function login(e) {
   var pass = document.getElementById("password2").value;
   var email = document.getElementById("email2").value;
   var result2 = document.getElementById("result2");
-  //var currentUser = document.getElementById("currentUser");
   var currentUser = document.getElementById("currntUserName");
 
   var user = localStorage.getItem(email);
@@ -223,8 +243,15 @@ function login(e) {
 
     //data.lastEntry = currentDate;
     data.wrongAttempts = 0;
-    localStorage.setItem(data.email, JSON.stringify(data));
-    localStorage.setItem("currentUserVar", JSON.stringify(data));
+    json = JSON.stringify(data);
+    //localStorage.setItem(data.email, json);
+    //localStorage.setItem("currentUserVar", json);
+    let fajax1 = new Fajax();
+    fajax1.open("PUT", data.email, json);
+    fajax1.send();
+    let fajax2 = new Fajax();
+    fajax2.open("PUT", "currentUserVar", json);
+    fajax2.send();
     currentUserVar = data;
     document.getElementById("signupbtn").style.display = "none";
     document.getElementById("loginbtn").style.display = "none";
@@ -235,10 +262,16 @@ function login(e) {
     if (data.wrongAttempts < 3) {
       result2.innerHTML = "wrong password";
       data.wrongAttempts += 1;
-      localStorage.setItem(data.email, JSON.stringify(data));
+      json = JSON.stringify(data);
+      //localStorage.setItem(data.email, json);
+      let fajax3 = new Fajax();
+      fajax3.open("PUT", data.email, json);
+      fajax3.send();
     } else {
-      localStorage.removeItem(data.email);
-      reloadTable();
+      //localStorage.removeItem(data.email);
+      let fajax4 = new Fajax();
+      fajax4.open("DELETE", data.email);
+      fajax4.send();
       result2.innerHTML =
         "You made a mistake 4 times, so the user is blocked and deleted. You can register again.";
     }
@@ -275,7 +308,10 @@ function logout() {
   //localStorage.setItem(currentUserVar.email, JSON.stringify(currentUserVar));
   //currentUser.innerHTML = "";
   currentUserVar = null;
-  localStorage.setItem("currentUserVar", null);
+  //localStorage.setItem("currentUserVar", null);
+  let fajax1 = new Fajax();
+  fajax1.open("PUT", "currentUserVar", null);
+  fajax1.send();
   document.getElementById("signupbtn").style.display = "inline";
   document.getElementById("loginbtn").style.display = "inline";
   document.getElementById("logoutbtn").style.display = "none";

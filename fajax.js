@@ -13,6 +13,10 @@ class Fajax {
     this.itemName = itemName;
   }
   send() {
-    this.net.sendData(this.method, this.itemName, this.data);
+    this.responseText = this.net.sendData(
+      this.method,
+      this.itemName,
+      this.data
+    );
   }
 }

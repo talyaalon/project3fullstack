@@ -1,10 +1,16 @@
 class DB {
   constructor() {}
-  get(itemName) {}
+  get(itemName) {
+    return localStorage.getItem(itemName);
+  }
   getAll() {}
-  put(itemName, data) {}
+  put(itemName, data) {
+    localStorage.setItem(itemName, data);
+  }
   post(itemName, data) {
     localStorage.setItem(itemName, data);
   }
-  deletee(itemName) {}
+  deletee(itemName) {
+    localStorage.removeItem(itemName);
+  }
 }
