@@ -311,9 +311,9 @@ input:checked ~ .bubble::after {
 	font-weight: bold;
 	color: #393232;
   }
-  body{
+  /* body{
 	background-image: url("images/backgroung.jpg");
-  }
+  } */
   h1{
 	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	color:aliceblue;

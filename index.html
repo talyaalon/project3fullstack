@@ -19,10 +19,12 @@
 </head>
 
 <body>
-    <button id="signupbtn" onclick="showContent('templeteSignup'),document.getElementById('home').style.display='none'"
+    <button id="signupbtn"
+        onclick="showContent('templeteSignup'),document.getElementById('loginbtn').style.display='none'"
         style="width:auto;">
         Sign Up</button>
-    <button id="loginbtn" onclick="showContent('templeteLogin') ,document.getElementById('home').style.display='none'"
+    <button id="loginbtn"
+        onclick="showContent('templeteLogin') ,document.getElementById('signupbtn').style.display='none'"
         style="width:auto;">Log In</button>
     <button id="logoutbtn" onclick=logout() style="width:auto;">Log Out</button>
     <template id="templeteSignup">

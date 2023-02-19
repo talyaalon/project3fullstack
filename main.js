@@ -1,17 +1,22 @@
-// let fajax = new Fajax();
-// fajax.open("GET", "currentUserVar");
-// fajax.send();
-//var user = fajax.responseText;
-var user = localStorage.getItem("currentUserVar");
+let fajax = new Fajax();
+fajax.open("GET", "currentUserVar");
+fajax.send();
+var user = fajax.responseText;
+//var user = localStorage.getItem("currentUserVar");
 var currentUserVar = JSON.parse(user);
 window.addEventListener("load", () => {
-  //todos = JSON.parse(localStorage.getItem("todos")) || [];
   if (currentUserVar != null) {
     var currentUser = document.getElementById("currntUserName");
     currentUser.innerHTML = "What's up, " + currentUserVar.username;
     document.getElementById("signupbtn").style.display = "none";
     document.getElementById("loginbtn").style.display = "none";
-    user = JSON.parse(localStorage.getItem(currentUserVar.email));
+    let fajax1 = new Fajax();
+    fajax1.open("GET", currentUserVar.email);
+    fajax1.send();
+    user = JSON.parse(fajax1.responseText);
+    console.log(user);
+    //user = JSON.parse(localStorage.getItem(currentUserVar.email));
+
     todos = user.todos;
     const newTodoForm = document.querySelector("#new-todo-form");
     newTodoForm.addEventListener("submit", (e) => {
@@ -42,6 +47,10 @@ window.addEventListener("load", () => {
     DisplayTodos();
   } else {
     document.getElementById("logoutbtn").style.display = "none";
+    const newTodoForm = document.querySelector("#new-todo-form");
+    newTodoForm.addEventListener("submit", (e) => {
+      alert("please log in or sign up first.");
+    });
   }
 
   //const nameInput = document.querySelector("#name");
@@ -73,6 +82,7 @@ function DisplayTodos() {
     const actions = document.createElement("div");
     const edit = document.createElement("button");
     const deleteButton = document.createElement("button");
+    const showButton = document.createElement("button");
 
     input.type = "checkbox";
     input.checked = todo.done;
@@ -86,15 +96,18 @@ function DisplayTodos() {
     actions.classList.add("actions");
     edit.classList.add("edit");
     deleteButton.classList.add("delete");
+    showButton.classList.add("show");
 
     content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
     edit.innerHTML = "Edit";
     deleteButton.innerHTML = "Delete";
+    showButton.innerHTML = "Show";
 
     label.appendChild(input);
     label.appendChild(span);
     actions.appendChild(edit);
     actions.appendChild(deleteButton);
+    actions.appendChild(showButton);
     todoItem.appendChild(label);
     todoItem.appendChild(content);
     todoItem.appendChild(actions);
@@ -154,23 +167,10 @@ function DisplayTodos() {
 
 /////////------------
 function allStorage() {
-  var values = [],
-    keys = Object.keys(localStorage),
-    i = keys.length;
-  console.log(keys);
-  //keys.removeItem("currentUserVar");
-  const idxObj = keys.findIndex((object) => {
-    return object == "currentUserVar";
-  });
-
-  keys.splice(idxObj, 1);
-  console.log(keys);
-  while (i--) {
-    var data = JSON.parse(localStorage.getItem(keys[i]));
-    if (data != null) values.push(data);
-  }
-
-  return values;
+  let fajax1 = new Fajax();
+  fajax1.open("GETALL");
+  fajax1.send();
+  return fajax1.responseText;
 }
 function signup(e) {
   event.preventDefault();
@@ -231,7 +231,11 @@ function login(e) {
   var result2 = document.getElementById("result2");
   var currentUser = document.getElementById("currntUserName");
 
-  var user = localStorage.getItem(email);
+  let fajax0 = new Fajax();
+  fajax0.open("GET", email);
+  fajax0.send();
+  var user = fajax0.responseText;
+  //var user = localStorage.getItem(email);
   var data = JSON.parse(user);
   console.log(data);
 

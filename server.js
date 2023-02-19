@@ -7,7 +7,7 @@ class Server {
       return this.get(itemName);
     }
     if (method == "GETALL") {
-      this.getAll();
+      return this.getAll();
     }
     if (method == "PUT") {
       this.put(itemName, data);
@@ -23,7 +23,7 @@ class Server {
     return this.db.get(itemName);
   }
   getAll() {
-    this.db.getAll();
+    return this.db.getAll();
   }
   put(itemName, data) {
     this.db.put(itemName, data);
