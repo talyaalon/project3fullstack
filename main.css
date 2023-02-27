@@ -243,6 +243,10 @@ input:checked ~ .bubble::after {
 .todo-item .actions .delete {
 	background-color: var(--danger);
 }
+.todo-item .actions .show {
+	background-color: var(--business);
+	margin-left: 0.5rem;
+}
 
 .todo-item.done .todo-content input {
 	text-decoration: line-through;
@@ -275,6 +279,31 @@ input:checked ~ .bubble::after {
 	align-self: center;
 	font-weight: bold; 
 	border-radius: 8px; 
+  }
+  .ourSection{
+	background-color: lavender;
+	left      : 50%;
+	top       : 50%;
+	position  : absolute;
+	 transform : translate(-50%, -50%);
+	padding: 10px;
+	width: auto;
+	height: auto;
+	text-align: center;
+	align-self: center;
+	font-weight: bold; 
+	border-radius: 8px; 
+  }
+  .ourContainer{
+	width: fit-content;
+	padding: 30px;
+	position: fixed;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	width: 70%;
+	height: 420px;
+  
   }
  button{
 	font-size: 12px;
