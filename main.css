@@ -281,18 +281,20 @@ input:checked ~ .bubble::after {
 	border-radius: 8px; 
   }
   .ourSection{
-	background-color: lavender;
-	left      : 50%;
-	top       : 50%;
-	position  : absolute;
-	 transform : translate(-50%, -50%);
+	background-color:rgb(249, 249, 252);
+	left      : 5%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	right: 5%;
+	/* position  : absolute; */
+	 /* transform : translate(-50%, -50%); */
 	padding: 10px;
-	width: auto;
-	height: auto;
 	text-align: center;
 	align-self: center;
-	font-weight: bold; 
-	border-radius: 8px; 
+	/* font-weight: bold;  */
+	border-radius: 20%; 
+	padding: 30px;
+	font-size: 20px;
   }
   .ourContainer{
 	width: fit-content;
@@ -357,4 +359,16 @@ input:checked ~ .bubble::after {
 	font-size: 18px;
 	margin: 0 auto;
 	text-align: left;
+  }  
+
+  .divButton{
+    margin-top: 20px;
+  }
+
+  h5{
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	color: rgb(8, 45, 102)0A4;;
+	font-size: 25px;
+	margin: 0 auto;
+	text-align: center;
   }  
