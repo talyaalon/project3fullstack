@@ -191,10 +191,14 @@ function DisplayTodos() {
       DisplayTodos();
       console.log(todo.content);
       showContent("showTodoTemplate");
-      const todoShow = document.querySelector("#ourSection");
-      //todoShow.innerHTML = "";
+      //   var todoContent = document.getElementById("todoContent");
+      //   console.log(todoContent);
+      //   todoContent.innerHTML = todo.content;
+
+      const divButton = document.querySelector("#divButton");
+      divButton.innerHTML = "";
       const todoItem = document.createElement("div");
-      todoItem.classList.add("showTodoDiv");
+      todoItem.classList.add("todo-item");
 
       const label = document.createElement("label");
       const input = document.createElement("input");
@@ -203,7 +207,6 @@ function DisplayTodos() {
       const actions = document.createElement("div");
       const edit = document.createElement("button");
       const deleteButton = document.createElement("button");
-      const showButton = document.createElement("button");
 
       input.type = "checkbox";
       input.checked = todo.done;
@@ -217,27 +220,116 @@ function DisplayTodos() {
       actions.classList.add("actions");
       edit.classList.add("edit");
       deleteButton.classList.add("delete");
-      showButton.classList.add("show");
 
       content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
       edit.innerHTML = "Edit";
       deleteButton.innerHTML = "Delete";
-      showButton.innerHTML = "Show";
 
       label.appendChild(input);
       label.appendChild(span);
       actions.appendChild(edit);
       actions.appendChild(deleteButton);
-      actions.appendChild(showButton);
       todoItem.appendChild(label);
       todoItem.appendChild(content);
       todoItem.appendChild(actions);
 
-      todoShow.appendChild(todoItem);
+      divButton.appendChild(todoItem);
 
       if (todo.done) {
         todoItem.classList.add("done");
       }
+      input.addEventListener("change", (e) => {
+        todo.done = e.target.checked;
+        user.todos = todos;
+        json = JSON.stringify(user);
+        //localStorage.setItem(currentUserVar.email,json);
+        let fajax1 = new Fajax();
+        fajax1.open("PUT", currentUserVar.email, json);
+        fajax1.send();
+        if (todo.done) {
+          todoItem.classList.add("done");
+        } else {
+          todoItem.classList.remove("done");
+        }
+
+        DisplayTodos();
+      });
+
+      edit.addEventListener("click", (e) => {
+        const input = content.querySelector("input");
+        input.removeAttribute("readonly");
+        input.focus();
+        input.addEventListener("blur", (e) => {
+          input.setAttribute("readonly", true);
+          todo.content = e.target.value;
+          user.todos = todos;
+          json = JSON.stringify(user);
+          //localStorage.setItem(currentUserVar.email, json);
+          let fajax1 = new Fajax();
+          fajax1.open("PUT", currentUserVar.email, json);
+          fajax1.send();
+          DisplayTodos();
+        });
+      });
+
+      deleteButton.addEventListener("click", (e) => {
+        todos = todos.filter((t) => t != todo);
+        user.todos = todos;
+        json = JSON.stringify(user);
+        //localStorage.setItem(currentUserVar.email, json);
+        let fajax1 = new Fajax();
+        fajax1.open("PUT", currentUserVar.email, json);
+        fajax1.send();
+        closeShowTodo();
+        DisplayTodos();
+      });
+      //   const todoShow = document.querySelector("#ourSection");
+      //   //todoShow.innerHTML = "";
+      //   const todoItem = document.createElement("div");
+      //   todoItem.classList.add("showTodoDiv");
+
+      //   const label = document.createElement("label");
+      //   const input = document.createElement("input");
+      //   const span = document.createElement("span");
+      //   const content = document.createElement("div");
+      //   const actions = document.createElement("div");
+      //   const edit = document.createElement("button");
+      //   const deleteButton = document.createElement("button");
+      //   const showButton = document.createElement("button");
+
+      //   input.type = "checkbox";
+      //   input.checked = todo.done;
+      //   span.classList.add("bubble");
+      //   if (todo.category == "personal") {
+      //     span.classList.add("personal");
+      //   } else {
+      //     span.classList.add("business");
+      //   }
+      //   content.classList.add("todo-content");
+      //   actions.classList.add("actions");
+      //   edit.classList.add("edit");
+      //   deleteButton.classList.add("delete");
+      //   showButton.classList.add("show");
+
+      //   content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
+      //   edit.innerHTML = "Edit";
+      //   deleteButton.innerHTML = "Delete";
+      //   showButton.innerHTML = "Show";
+
+      //   label.appendChild(input);
+      //   label.appendChild(span);
+      //   actions.appendChild(edit);
+      //   actions.appendChild(deleteButton);
+      //   actions.appendChild(showButton);
+      //   todoItem.appendChild(label);
+      //   todoItem.appendChild(content);
+      //   todoItem.appendChild(actions);
+
+      //   todoShow.appendChild(todoItem);
+
+      //   if (todo.done) {
+      //     todoItem.classList.add("done");
+      //   }
     });
   });
 }
@@ -402,8 +494,8 @@ function closeShowTodo() {
   document.getElementById("showTodoDiv").style.display = "none";
   const element = document.getElementById("showTodoTemplate");
   element.remove();
-  document.getElementById("result1").innerHTML =
-    "Welcome! please create account";
+  //   document.getElementById("result1").innerHTML =
+  //     "Welcome! please create account";
 
   location.reload();
 }
@@ -419,4 +511,9 @@ function logout() {
   document.getElementById("loginbtn").style.display = "inline";
   document.getElementById("logoutbtn").style.display = "none";
   location.reload();
+}
+
+function submitSearch() {
+  var search = document.getElementById("searchContent").value;
+  console.log(search);
 }

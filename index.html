@@ -80,19 +80,10 @@
             <span onclick=closeShowTodo() class="close" title="Close">&times;</span>
             <div class="ourContainer">
                 <section class="ourSection" id="">
-                    <!-- <label for="username1">Username</label> <br>
-                    <input type="text" name="username1" id="username1" required><br>
-
-                    <label for="email1">Email</label> <br>
-                    <input type="email" name="email1" id="email1" required><br>
-
-                    <label for="password1">Password</label> <br>
-                    <input type="password" name="password1" id="password1" required><br>
-                    <hr><br> -->
-
-                    <button type="submit">Sign Up</button>
+                    <h3>OUR TODO</h3>
                     <hr><br>
-                    <p id="result1">Welcome! please create account</p>
+                    <!-- <p id="todoContent">Welcome! please create account</p> -->
+                    <div class="divButton" id="divButton"></div>
                 </section>
 
             </div>
@@ -105,17 +96,22 @@
             <h2 class="title" id="currntUserName">
                 What's up,
             </h2>
-            <h2 class="title">
-            </h2>
+            <h4>search</h4>
+            <form>
+                <input type="text" placeholder="search your todo" name="searchContent" id="searchContent" />
+                <input type="submit" value="search" onclick="submitSearch()" />
+            </form>
+
         </section>
         <!-- End of Greeting -->
 
         <!-- New Todo -->
         <section class="create-todo">
+
             <h3>CREATE A TODO</h3>
             <form id="new-todo-form">
-                <h4>What's on your todo?</h4>
-                <input type="text" placeholder="e.g. Get some milk" name="content" id="content" />
+                <!-- <h4>What's on your todo?</h4> -->
+                <input type="text" placeholder="write your todo" name="content" id="content" />
 
                 <h4>Pick a category</h4>
                 <div class="options">
