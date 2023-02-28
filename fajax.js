@@ -4,7 +4,7 @@ class Fajax {
     this.responseText = null;
     this.data = null;
     this.itemName = null;
-    this.onload = null;
+    this.onload = () => {};
     this.net = new Network();
   }
   open(method, itemName = null, data = null) {

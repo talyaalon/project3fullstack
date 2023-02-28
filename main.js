@@ -335,8 +335,8 @@ function DisplayTodos() {
 }
 
 /////////------------
-function allStorage() {
-  var allStorage;
+function allStorageFunc() {
+  //var allStorage;
   let fajax1 = new Fajax();
   fajax1.open("GETALL");
   //fajax1.send();
@@ -345,7 +345,7 @@ function allStorage() {
   };
   fajax1.send();
   //return fajax1.responseText;
-  return allStorage;
+  //return allStorage;
 }
 function signup(e) {
   event.preventDefault();
@@ -367,37 +367,43 @@ function signup(e) {
     todos: [],
   };
 
-  console.log(allStorage());
-  allstorage = allStorage();
-  console.log(email1);
-  console.log(allstorage);
-  const accountExist = allstorage.some((user1) => user1.email == email1);
-  if (accountExist) {
-    result1.innerHTML =
-      "There is already an account associated with this email address";
-    return;
-  }
-  var json = JSON.stringify(user);
-  let fajax1 = new Fajax();
-  fajax1.open("POST", email1, json);
-  fajax1.send();
+  let allStorage;
+  let fajax0 = new Fajax();
+  fajax0.open("GETALL");
+  fajax0.onload = () => {
+    allStorage = fajax0.responseText;
+    console.log(email1);
+    console.log(allStorage);
+    const accountExist = allStorage.some((user1) => user1.email == email1);
+    if (accountExist) {
+      result1.innerHTML =
+        "There is already an account associated with this email address";
+      return;
+    }
+    var json = JSON.stringify(user);
+    let fajax1 = new Fajax();
+    fajax1.open("POST", email1, json);
+    fajax1.send();
 
-  //localStorage.setItem(email1, json);
-  console.log("user added");
-  result1.innerHTML = "User successfully added";
-  currentUser.innerHTML = "What's up, " + user.username;
-  currentUserVar = user;
-  //localStorage.setItem("currentUserVar", json);
-  let fajax2 = new Fajax();
-  fajax2.open("POST", "currentUserVar", json);
-  fajax2.send();
-  //reloadTable();
-  document.getElementById("username1").value = "";
-  document.getElementById("password1").value = "";
-  document.getElementById("email1").value = "";
-  document.getElementById("signupbtn").style.display = "none";
-  document.getElementById("loginbtn").style.display = "none";
-  document.getElementById("logoutbtn").style.display = "block";
+    //localStorage.setItem(email1, json);
+    console.log("user added");
+    result1.innerHTML = "User successfully added";
+    currentUser.innerHTML = "What's up, " + user.username;
+    currentUserVar = user;
+    //localStorage.setItem("currentUserVar", json);
+    let fajax2 = new Fajax();
+    fajax2.open("POST", "currentUserVar", json);
+    fajax2.send();
+    //reloadTable();
+    document.getElementById("username1").value = "";
+    document.getElementById("password1").value = "";
+    document.getElementById("email1").value = "";
+    document.getElementById("signupbtn").style.display = "none";
+    document.getElementById("loginbtn").style.display = "none";
+    document.getElementById("logoutbtn").style.display = "block";
+  };
+  fajax0.send();
+  //allStorageFunc();
 }
 
 function login(e) {
@@ -514,6 +520,10 @@ function logout() {
 }
 
 function submitSearch() {
-  var search = document.getElementById("searchContent").value;
-  console.log(search);
+  if (currentUserVar != null) {
+    var search = document.getElementById("searchContent").value;
+    console.log(search);
+  } else {
+    alert("please log in or sign up first.");
+  }
 }
