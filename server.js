@@ -2,20 +2,20 @@ class Server {
   constructor() {
     this.db = new DB();
   }
-  generalSortFunc(method, itemName = null, data = null) {
-    if (method == "GET") {
+  generalSortFunc(method, url, itemName = null, data = null) {
+    if (method == "GET" && url == "https/ourProject/get/" + itemName) {
       return this.get(itemName);
     }
-    if (method == "GETALL") {
+    if (method == "GETALL" && url == "https/ourProject/getall") {
       return this.getAll();
     }
-    if (method == "PUT") {
+    if (method == "PUT" && url == "https/ourProject/put") {
       this.put(itemName, data);
     }
-    if (method == "POST") {
+    if (method == "POST" && url == "https/ourProject/post") {
       this.post(itemName, data);
     }
-    if (method == "DELETE") {
+    if (method == "DELETE" && url == "https/ourProject/delete/" + itemName) {
       this.deletee(itemName);
     }
   }

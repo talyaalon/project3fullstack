@@ -1,6 +1,6 @@
 /* Variables */
 :root {
-	--primary: #EA40A4;
+	--primary: #7cf141;
 	--business: #3a82ee;
 	--personal: var(--primary);
 	--light: #EEE;
@@ -11,7 +11,7 @@
 	--shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
 	--business-glow: 0px 0px 4px rgba(58, 130, 238, 0.75);
-	--personal-glow: 0px 0px 4px rgba(234, 64, 164, 0.75);
+	--personal-glow: 0px 0px 4px rgba(132, 234, 64, 0.75);
 }
 /* End of Variables */
 
