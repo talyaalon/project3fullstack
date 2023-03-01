@@ -77,9 +77,10 @@
     </template>
     <template id="showTodoTemplate">
         <div id="showTodoDiv" class="modal">
-            <span onclick=closeShowTodo() class="close" title="Close">&times;</span>
+
             <div class="ourContainer">
                 <section class="ourSection" id="">
+                    <span onclick=closeShowTodo() class="close" title="Close">&times;</span>
                     <h5>OUR TODO</h5>
                     <hr><br>
                     <!-- <p id="todoContent">Welcome! please create account</p> -->
@@ -100,6 +101,7 @@
             <form>
                 <input type="text" placeholder="search your todo" name="searchContent" id="searchContent" />
                 <input type="submit" value="search" onclick="submitSearch()" />
+                <input type="submit" value="clean search" onclick="cleanSearch()" />
             </form>
 
         </section>

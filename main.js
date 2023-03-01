@@ -2,17 +2,16 @@
 let fajax = new Fajax();
 fajax.open("GET", "currentUserVar");
 console.log(1);
-var user, currentUserVar;
+var user, currentUserVar, todos;
+console.log(todos);
 fajax.onload = () => {
   user = fajax.responseText;
   //user = localStorage.getItem("currentUserVar");
   currentUserVar = JSON.parse(user);
 };
-function callback2() {
-  user = fajax.responseText;
-  user = localStorage.getItem("currentUserVar");
-  currentUserVar = JSON.parse(user);
-}
+// let fajax12 = new Fajax();
+// fajax12.open("POST", "todos", "null");
+// fajax12.send();
 //fajax.send(net.sendData);
 //fajax.add(4, 2, fajax.log);
 fajax.send();
@@ -43,6 +42,7 @@ window.addEventListener("load", () => {
           category: e.target.elements.category.value,
           done: false,
           createdAt: new Date().getTime(),
+          isInSearch: true,
         };
 
         //todos.push(todo);
@@ -58,6 +58,7 @@ window.addEventListener("load", () => {
         e.target.reset();
 
         DisplayTodos();
+        location.reload();
       });
       console.log(todos);
       DisplayTodos();
@@ -95,6 +96,8 @@ window.addEventListener("load", () => {
 function DisplayTodos() {
   const todoList = document.querySelector("#todo-list");
   todoList.innerHTML = "";
+  console.log(todos);
+  todos = todos.filter((t) => t.isInSearch == true);
   console.log(todos);
   todos.forEach((todo) => {
     const todoItem = document.createElement("div");
@@ -420,7 +423,10 @@ function login(e) {
   //fajax0.send();
   fajax0.onload = () => {
     user = fajax0.responseText;
-    data = JSON.parse(user);
+    if (user != null) {
+      data = JSON.parse(user);
+    }
+
     console.log(data);
     if (user == null) {
       result2.innerHTML = "The email address is not registered on the website";
@@ -521,8 +527,52 @@ function logout() {
 
 function submitSearch() {
   if (currentUserVar != null) {
-    var search = document.getElementById("searchContent").value;
-    console.log(search);
+    var searchvalue = document.getElementById("searchContent").value;
+    console.log(searchvalue);
+    let user;
+    let fajax0 = new Fajax();
+    fajax0.open("GET", currentUserVar.email);
+    fajax0.onload = () => {
+      user = JSON.parse(fajax0.responseText);
+      todos = user.todos;
+      todos.forEach((todo) => {
+        if (!todo.content.includes(searchvalue)) {
+          todo.isInSearch = false;
+        }
+      });
+      user.todos = todos;
+      console.log(user.todos);
+      let fajax1 = new Fajax();
+      fajax1.open("PUT", currentUserVar.email, JSON.stringify(user));
+      fajax1.send();
+
+      DisplayTodos();
+    };
+    fajax0.send();
+  } else {
+    alert("please log in or sign up first.");
+  }
+}
+
+function cleanSearch() {
+  if (currentUserVar != null) {
+    let fajax0 = new Fajax();
+    fajax0.open("GET", currentUserVar.email);
+    fajax0.onload = () => {
+      user = JSON.parse(fajax0.responseText);
+      todos = user.todos;
+      todos.forEach((todo) => {
+        todo.isInSearch = true;
+      });
+      user.todos = todos;
+      console.log(user.todos);
+      let fajax1 = new Fajax();
+      fajax1.open("PUT", currentUserVar.email, JSON.stringify(user));
+      fajax1.send();
+
+      DisplayTodos();
+    };
+    fajax0.send();
   } else {
     alert("please log in or sign up first.");
   }
