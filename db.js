@@ -8,7 +8,6 @@ class DB {
       keys = Object.keys(localStorage),
       i = keys.length;
     console.log(keys);
-    //keys.removeItem("currentUserVar");
     const idxObj = keys.findIndex((object) => {
       return object == "currentUserVar";
     });

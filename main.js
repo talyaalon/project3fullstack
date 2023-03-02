@@ -1,4 +1,3 @@
-//let net = new Network();
 let fajax = new Fajax();
 fajax.open("GET", "https/ourProject/get/" + "currentUserVar", "currentUserVar");
 console.log(1);
@@ -7,21 +6,13 @@ console.log(todos);
 fajax.onload = () => {
   if (fajax.statusCode == "200") {
     user = fajax.responseText;
-    //user = localStorage.getItem("currentUserVar");
     currentUserVar = JSON.parse(user);
   }
 };
-// let fajax12 = new Fajax();
-// fajax12.open("POST", "todos", "null");
-// fajax12.send();
-//fajax.send(net.sendData);
-//fajax.add(4, 2, fajax.log);
+
 fajax.send();
 console.log(2);
 
-//var user = fajax.responseText;
-//var user = localStorage.getItem("currentUserVar");
-//var currentUserVar = JSON.parse(user);
 window.addEventListener("load", () => {
   if (currentUserVar != null) {
     var currentUser = document.getElementById("currntUserName");
@@ -34,7 +25,6 @@ window.addEventListener("load", () => {
       "https/ourProject/get/" + currentUserVar.email,
       currentUserVar.email
     );
-    //fajax1.send();
     fajax1.onload = () => {
       if (fajax1.statusCode == "200") {
         user = JSON.parse(fajax1.responseText);
@@ -52,11 +42,8 @@ window.addEventListener("load", () => {
             isInSearch: true,
           };
 
-          //todos.push(todo);
-          //localStorage.setItem("todos", JSON.stringify(todos));
           user.todos.push(todo);
           json = JSON.stringify(user);
-          //localStorage.setItem(currentUserVar.email, json);
           let fajax1 = new Fajax();
           fajax1.open(
             "PUT",
@@ -76,14 +63,8 @@ window.addEventListener("load", () => {
         DisplayTodos();
       }
     };
-    //fajax1.send(net.sendData);
     fajax1.send();
-    //user = JSON.parse(fajax1.responseText);
     console.log(user);
-    //user = JSON.parse(localStorage.getItem(currentUserVar.email));
-
-    // todos = user.todos;
-    // console.log("line 36: todos: " + todos);
   } else {
     document.getElementById("logoutbtn").style.display = "none";
     const newTodoForm = document.querySelector("#new-todo-form");
@@ -91,19 +72,6 @@ window.addEventListener("load", () => {
       alert("please log in or sign up first.");
     });
   }
-
-  //const nameInput = document.querySelector("#name");
-
-  //const username = localStorage.getItem("username") || "";
-
-  //nameInput.value = username;
-
-  //   nameInput.addEventListener("change", (e) => {
-  //     let fajax = new Fajax();
-  //     fajax.open("POST", "username", e.target.value);
-  //     fajax.send();
-  //     //localStorage.setItem("username", e.target.value);
-  //   });
 });
 
 function DisplayTodos() {
@@ -163,7 +131,6 @@ function DisplayTodos() {
       todo.done = e.target.checked;
       user.todos = todos;
       json = JSON.stringify(user);
-      //localStorage.setItem(currentUserVar.email,json);
       let fajax1 = new Fajax();
       fajax1.open("PUT", "https/ourProject/put", currentUserVar.email, json);
       fajax1.send();
@@ -185,7 +152,6 @@ function DisplayTodos() {
         todo.content = e.target.value;
         user.todos = todos;
         json = JSON.stringify(user);
-        //localStorage.setItem(currentUserVar.email, json);
         let fajax1 = new Fajax();
         fajax1.open("PUT", "https/ourProject/put", currentUserVar.email, json);
         fajax1.send();
@@ -197,7 +163,6 @@ function DisplayTodos() {
       todos = todos.filter((t) => t != todo);
       user.todos = todos;
       json = JSON.stringify(user);
-      //localStorage.setItem(currentUserVar.email, json);
       let fajax1 = new Fajax();
       fajax1.open("PUT", currentUserVar.email, json);
       fajax1.send();
@@ -207,9 +172,6 @@ function DisplayTodos() {
       DisplayTodos();
       console.log(todo.content);
       showContent("showTodoTemplate");
-      //   var todoContent = document.getElementById("todoContent");
-      //   console.log(todoContent);
-      //   todoContent.innerHTML = todo.content;
 
       const divButton = document.querySelector("#divButton");
       divButton.innerHTML = "";
@@ -258,7 +220,6 @@ function DisplayTodos() {
         todo.done = e.target.checked;
         user.todos = todos;
         json = JSON.stringify(user);
-        //localStorage.setItem(currentUserVar.email,json);
         let fajax1 = new Fajax();
         fajax1.open("PUT", "https/ourProject/put", currentUserVar.email, json);
         fajax1.send();
@@ -280,7 +241,6 @@ function DisplayTodos() {
           todo.content = e.target.value;
           user.todos = todos;
           json = JSON.stringify(user);
-          //localStorage.setItem(currentUserVar.email, json);
           let fajax1 = new Fajax();
           fajax1.open(
             "PUT",
@@ -297,78 +257,26 @@ function DisplayTodos() {
         todos = todos.filter((t) => t != todo);
         user.todos = todos;
         json = JSON.stringify(user);
-        //localStorage.setItem(currentUserVar.email, json);
         let fajax1 = new Fajax();
         fajax1.open("PUT", "https/ourProject/put", currentUserVar.email, json);
         fajax1.send();
         closeShowTodo();
         DisplayTodos();
       });
-      //   const todoShow = document.querySelector("#ourSection");
-      //   //todoShow.innerHTML = "";
-      //   const todoItem = document.createElement("div");
-      //   todoItem.classList.add("showTodoDiv");
-
-      //   const label = document.createElement("label");
-      //   const input = document.createElement("input");
-      //   const span = document.createElement("span");
-      //   const content = document.createElement("div");
-      //   const actions = document.createElement("div");
-      //   const edit = document.createElement("button");
-      //   const deleteButton = document.createElement("button");
-      //   const showButton = document.createElement("button");
-
-      //   input.type = "checkbox";
-      //   input.checked = todo.done;
-      //   span.classList.add("bubble");
-      //   if (todo.category == "personal") {
-      //     span.classList.add("personal");
-      //   } else {
-      //     span.classList.add("business");
-      //   }
-      //   content.classList.add("todo-content");
-      //   actions.classList.add("actions");
-      //   edit.classList.add("edit");
-      //   deleteButton.classList.add("delete");
-      //   showButton.classList.add("show");
-
-      //   content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
-      //   edit.innerHTML = "Edit";
-      //   deleteButton.innerHTML = "Delete";
-      //   showButton.innerHTML = "Show";
-
-      //   label.appendChild(input);
-      //   label.appendChild(span);
-      //   actions.appendChild(edit);
-      //   actions.appendChild(deleteButton);
-      //   actions.appendChild(showButton);
-      //   todoItem.appendChild(label);
-      //   todoItem.appendChild(content);
-      //   todoItem.appendChild(actions);
-
-      //   todoShow.appendChild(todoItem);
-
-      //   if (todo.done) {
-      //     todoItem.classList.add("done");
-      //   }
     });
   });
 }
 
 /////////------------
 function allStorageFunc() {
-  //var allStorage;
   let fajax1 = new Fajax();
   fajax1.open("GETALL", "https/ourProject/getall");
-  //fajax1.send();
   fajax1.onload = () => {
     if (fajax1.statusCode == "200") {
       allStorage = fajax1.responseText;
     }
   };
   fajax1.send();
-  //return fajax1.responseText;
-  //return allStorage;
 }
 function signup(e) {
   event.preventDefault();
@@ -409,16 +317,13 @@ function signup(e) {
       fajax1.open("POST", "https/ourProject/post", email1, json);
       fajax1.send();
 
-      //localStorage.setItem(email1, json);
       console.log("user added");
       result1.innerHTML = "User successfully added";
       currentUser.innerHTML = "What's up, " + user.username;
       currentUserVar = user;
-      //localStorage.setItem("currentUserVar", json);
       let fajax2 = new Fajax();
       fajax2.open("POST", "https/ourProject/post", "currentUserVar", json);
       fajax2.send();
-      //reloadTable();
       document.getElementById("username1").value = "";
       document.getElementById("password1").value = "";
       document.getElementById("email1").value = "";
@@ -428,7 +333,6 @@ function signup(e) {
     }
   };
   fajax0.send();
-  //allStorageFunc();
 }
 
 function login(e) {
@@ -442,7 +346,6 @@ function login(e) {
   var user, data, json;
   let fajax0 = new Fajax();
   fajax0.open("GET", "https/ourProject/get/" + email, email);
-  //fajax0.send();
   fajax0.onload = () => {
     if (fajax0.statusCode == "200") {
       user = fajax0.responseText;
@@ -458,11 +361,8 @@ function login(e) {
         result2.innerHTML = "logged in";
         currentUser.innerHTML = "What's up, " + data.username;
 
-        //data.lastEntry = currentDate;
         data.wrongAttempts = 0;
         json = JSON.stringify(data);
-        //localStorage.setItem(data.email, json);
-        //localStorage.setItem("currentUserVar", json);
         let fajax1 = new Fajax();
         fajax1.open("PUT", "https/ourProject/put", data.email, json);
         fajax1.send();
@@ -480,12 +380,10 @@ function login(e) {
           result2.innerHTML = "wrong password";
           data.wrongAttempts += 1;
           json = JSON.stringify(data);
-          //localStorage.setItem(data.email, json);
           let fajax3 = new Fajax();
           fajax3.open("PUT", "https/ourProject/put", data.email, json);
           fajax3.send();
         } else {
-          //localStorage.removeItem(data.email);
           let fajax4 = new Fajax();
           fajax4.open(
             "DELETE",
@@ -500,9 +398,6 @@ function login(e) {
     }
   };
   fajax0.send();
-  //var user = fajax0.responseText;
-  //var user = localStorage.getItem(email);
-  //var data = JSON.parse(user);
 }
 
 function showContent(nameItem) {
@@ -535,16 +430,11 @@ function closeShowTodo() {
   document.getElementById("showTodoDiv").style.display = "none";
   const element = document.getElementById("showTodoTemplate");
   element.remove();
-  //   document.getElementById("result1").innerHTML =
-  //     "Welcome! please create account";
 
   location.reload();
 }
 function logout() {
-  //localStorage.setItem(currentUserVar.email, JSON.stringify(currentUserVar));
-  //currentUser.innerHTML = "";
   currentUserVar = null;
-  //localStorage.setItem("currentUserVar", null);
   let fajax1 = new Fajax();
   fajax1.open("PUT", "https/ourProject/put", "currentUserVar", null);
   fajax1.send();
